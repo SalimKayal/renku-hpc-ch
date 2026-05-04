@@ -1,0 +1,92 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#   "jinja2>=3.1",
+#   "pyyaml>=6.0",
+# ]
+# ///
+
+"""
+Static generator for reveal.js slide decks.
+
+Usage:
+    uv run build.py talks/hpc-ch-presentation
+
+Output:
+    output/hpc-ch-presentation.html
+"""
+
+import argparse
+import glob
+import os
+import shutil
+import sys
+from pathlib import Path
+
+import yaml
+from jinja2 import Environment, FileSystemLoader
+
+
+ROOT = Path(__file__).resolve().parent
+TEMPLATES_DIR = ROOT / "templates"
+OUTPUT_DIR = ROOT / "output"
+
+
+def build(talk_dir: Path) -> None:
+    talk_dir = talk_dir.resolve()
+    config_path = talk_dir / "config.yaml"
+    slides_dir = talk_dir / "slides"
+
+    if not config_path.exists():
+        print(f"error: config file not found: {config_path}", file=sys.stderr)
+        sys.exit(1)
+
+    if not slides_dir.is_dir():
+        print(f"error: slides directory not found: {slides_dir}", file=sys.stderr)
+        sys.exit(1)
+
+    with config_path.open("r", encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+
+    # Collect slide partials in lexicographical order
+    slide_files = sorted(glob.glob(str(slides_dir / "*.html")))
+    slides_html = []
+    for sf in slide_files:
+        with open(sf, "r", encoding="utf-8") as f:
+            slides_html.append(f.read().strip())
+
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
+    template = env.get_template("base.html")
+
+    html = template.render(
+        config=config,
+        slides=slides_html,
+    )
+
+    talk_name = talk_dir.name
+    out_dir = OUTPUT_DIR / talk_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Copy static assets into the output folder
+    static_src = ROOT / "static"
+    static_dst = out_dir / "static"
+    if static_src.is_dir():
+        if static_dst.exists():
+            shutil.rmtree(static_dst)
+        shutil.copytree(static_src, static_dst)
+
+    out_file = out_dir / "index.html"
+    out_file.write_text(html, encoding="utf-8")
+    print(f"Built: {out_file}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Build a reveal.js slide deck.")
+    parser.add_argument("talk_dir", type=Path, help="Path to the talk directory.")
+    args = parser.parse_args()
+    build(args.talk_dir)
+
+
+if __name__ == "__main__":
+    main()
