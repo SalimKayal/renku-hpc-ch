@@ -1,0 +1,40 @@
+<!-- 4. Big-picture architecture -->
+<section>
+  <h2>Big picture</h2>
+  <div class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'fontSize': '13px', 'fontFamily': 'Montserrat, sans-serif'}}}%%
+flowchart LR
+  subgraph User["👤 User"]
+    browser("🌐 Browser")
+  end
+  subgraph Cloud["☁️ Renku (Kubernetes)"]
+    ingress("renkulab.io")
+    subgraph Pod["AmaltheaSession pod (Remote)"]
+      rsc("remote-session-controller")
+      tun("tunnel")
+    end
+    build("🛠️ Buildpacks")
+    registry[("📦 OCI registry")]
+  end
+  subgraph CSCS["🏔️ CSCS"]
+    firecrest("FirecREST")
+    slurm("SLURM")
+    subgraph Node["Compute node"]
+      enroot("Pyxis + Enroot")
+      app("IDE")
+    end
+  end
+  browser <--> ingress
+  ingress --> tun
+  tun <-. wstunnel .-> app
+  rsc -- submit/status --> firecrest
+  firecrest --> slurm
+  slurm --> Node
+  enroot -- pull --> registry
+  build --> registry
+classDef k fill:#0099cc,stroke:#007399,color:#fff;
+classDef h fill:#0acc92,stroke:#007399,color:#fff;
+class ingress,rsc,tun,build,registry k;
+class firecrest,slurm,enroot,app h;
+  </div>
+</section>

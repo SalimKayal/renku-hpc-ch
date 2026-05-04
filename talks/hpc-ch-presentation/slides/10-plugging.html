@@ -1,0 +1,13 @@
+<!-- 10. For other HPC providers -->
+<section>
+  <h2>What it takes to plug a new site</h2>
+  <ul>
+    <li class="fragment"><strong>FirecREST</strong> (REST-to-SLURM gateway with OIDC)</li>
+    <li class="fragment"><strong>Pyxis + Enroot</strong> available on compute nodes</li>
+    <li class="fragment">Outbound HTTPS from compute nodes to the Renku ingress</li>
+    <li class="fragment">An OCI registry the nodes can reach</li>
+  </ul>
+  <p class="fragment" style="margin-top:1em;">
+    The Renku side is <strong>generic</strong>: a per-site adapter plus a resource pool definition.
+  </p>
+</section>

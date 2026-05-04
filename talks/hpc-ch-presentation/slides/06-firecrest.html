@@ -1,0 +1,14 @@
+<!-- 6. FirecREST -->
+<section>
+  <h2>Talking to SLURM: FirecREST</h2>
+  <ul>
+    <li class="fragment">REST gateway to HPC, built by CSCS</li>
+    <li class="fragment">OIDC auth — identity managed by Renku through an integration</li>
+    <li class="fragment">Submit jobs, poll status, move files — over HTTPS</li>
+    <li class="fragment">No SSH keys, no bastion hosts to manage</li>
+  </ul>
+  <p class="fragment" style="margin-top:1.2em;">
+    Renku's <code>remote-session-controller</code> generates the
+    <code>session_script.sh</code> + <code>environment.toml</code> and submits via FirecREST.
+  </p>
+</section>

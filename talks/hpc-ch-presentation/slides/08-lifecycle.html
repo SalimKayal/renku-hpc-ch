@@ -1,0 +1,25 @@
+<!-- 8. Lifecycle sequence -->
+<section>
+  <h2>End-to-end lifecycle</h2>
+  <div class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'fontSize': '12px'}}}%%
+sequenceDiagram
+  autonumber
+  participant U as User
+  participant R as Renku
+  participant P as Session pod
+  participant F as FirecREST
+  participant S as SLURM
+  participant N as HPC container
+  U->>R: Launch (CSCS resource class)
+  R->>P: AmaltheaSession (Remote)
+  P->>F: submit(image, script)
+  F->>S: sbatch
+  S-->>N: alloc + Pyxis/Enroot start
+  N->>P: wstunnel dial-in (secret)
+  P-->>U: Ready
+  U->>P: HTTPS
+  P-->>N: forward over tunnel
+  N-->>U: Jupyter / VSCodium
+  </div>
+</section>

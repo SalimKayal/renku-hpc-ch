@@ -1,0 +1,23 @@
+<!-- 5. Images: buildpacks -> enroot -->
+<section data-transition="zoom" class="split-background-slide">
+  <div class="left-content">
+    <h2>One image,<br> two worlds</h2>
+    <ul>
+      <li class="fragment">Define env in Git: <code>environment.yml</code>, <code>requirements.txt</code>, <code>pyproject.toml</code></li>
+      <li class="fragment"><strong>Buildpacks</strong> + Shipwright produce an OCI image</li>
+      <li class="fragment">On HPC: <strong>Pyxis</strong> + <strong>Enroot</strong> pull the same image</li>
+      <li class="fragment">No Docker daemon, no root, plays nicely with SLURM</li>
+    </ul>
+  </div>
+  <div class="right-content">
+    <div class="mermaid">
+%%{init: {'theme':'base', 'themeVariables': {'fontSize': '13px'}}}%%
+flowchart TB
+  repo("📁 Git repo environment.yml") --> sw("Shipwright + Buildpacks")
+  sw --> oci[("📦 OCI image")]
+  oci --> enroot("Enroot")
+  enroot --> pyxis("Pyxis SLURM plugin")
+  pyxis --> job("Your env on a GPU node")
+    </div>
+  </div>
+</section>
