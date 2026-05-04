@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{{ config.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/monokai.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/theme/white.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/theme.css">
+    {%- for css in config.extra_css | default([]) %}
+    <link rel="stylesheet" href="{{ css }}">
+    {%- endfor %}
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11.6.0/plugin/mermaid/mermaid.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        {%- for slide in slides %}
+        {{ slide }}
+        {%- endfor %}
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.min.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        transition: 'slide',
+        mobileViewDistance: 2,
+        plugins: [ RevealZoom, RevealMermaid, RevealHighlight ],
+        mermaid: { theme: 'default', securityLevel: 'loose' }
+      });
+      Reveal.addEventListener('slidechanged', function(event) {
+        const isNewHorizontalSlide = event.previousSlide &&
+          event.previousSlide.parentNode !== event.currentSlide.parentNode;
+        if (isNewHorizontalSlide) {
+          event.currentSlide.dataset.transition = 'zoom';
+        }
+      });
+    </script>
+  </body>
+</html>
