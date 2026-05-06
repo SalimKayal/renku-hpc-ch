@@ -32,6 +32,10 @@
       const r = getComputedStyle(document.documentElement);
       const mv = (name) => r.getPropertyValue(name).trim();
       Reveal.initialize({
+        width: 1280,
+        margin: 0.1,        // 4% margin around content
+        minScale: 1.0,
+        maxScale: 2.0,
         hash: true,
         slideNumber: true,
         transition: 'slide',
