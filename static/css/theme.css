@@ -9,9 +9,9 @@
 
   /* Mermaid diagram styling */
   --mermaid-font-size: 13px;
-  --mermaid-k-fill: #0099cc;
+  --mermaid-k-fill: #80b7ac;
   --mermaid-k-stroke: #007399;
-  --mermaid-h-fill: #0acc92;
+  --mermaid-h-fill: #5bbad5;
   --mermaid-h-stroke: #007399;
   --mermaid-k-text: #ffffff;
   --mermaid-h-text: #ffffff;
@@ -82,6 +82,7 @@ body { font-family: 'Lato', 'Nunito Sans', sans-serif; }
 .reveal .mermaid { overflow: visible; max-width: 100%; }
 
 /* Mermaid node class overrides */
+.reveal .mermaid svg g.node.k path,
 .reveal .mermaid svg g.node.k rect,
 .reveal .mermaid svg g.node.k circle,
 .reveal .mermaid svg g.node.k polygon,
@@ -91,6 +92,7 @@ body { font-family: 'Lato', 'Nunito Sans', sans-serif; }
 }
 .reveal .mermaid svg g.node.k .label { fill: var(--mermaid-k-text) !important; }
 
+.reveal .mermaid svg g.node.h path,
 .reveal .mermaid svg g.node.h rect,
 .reveal .mermaid svg g.node.h circle,
 .reveal .mermaid svg g.node.h polygon,
