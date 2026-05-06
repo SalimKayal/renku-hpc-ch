@@ -1,2 +1,39 @@
-title: "Bridging Cloud and HPC with Renku"
-# extra_css: []
+# HPC-CH Presentation Configuration
+# Slides are rendered in this exact order
+
+title: "Bridging Cloud and HPC"
+subtitle: "Inside the Renku HPC integration"
+
+slides:
+  - file: 01-title.html
+    title: "Title Slide"
+  - file: 02-research-ecosystem.html
+    title: "Research Ecosystem"
+  - file: 03-project-screenshot.html
+    title: "Project Screenshot"
+  - file: 04-external-compute.html
+    title: "External Compute"
+  - file: audience.html
+    title: "Intended Audience"
+  - file: 05-recap.html
+    title: "Recap"
+  - file: 06-gap.html
+    title: "The Gap"
+  - file: 07-architecture.html
+    title: "Big Picture Architecture"
+  - file: 08-images.html
+    title: "Images: Buildpacks To Enroot"
+  - file: 09-firecrest.html
+    title: "Firecrest"
+  - file: 10-tunnel.html
+    title: "Tunnel Detail"
+  - file: 11-lifecycle.html
+    title: "Lifecycle Sequence"
+  - file: 12-status.html
+    title: "What Works / What Doesn't"
+  - file: 13-plugging.html
+    title: "For Other HPC Providers"
+  - file: 14-roadmap.html
+    title: "Roadmap"
+  - file: 15-questions.html
+    title: "Q and A"

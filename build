@@ -35,8 +35,10 @@ OUTPUT_DIR = ROOT / "output"
 
 def build(talk_dir: Path) -> None:
     talk_dir = talk_dir.resolve()
-    config_path = talk_dir / "config.yaml"
     slides_dir = talk_dir / "slides"
+    config_path = talk_dir.parent / "config.yaml"  # Check parent dir for global config
+    if not config_path.exists():
+        config_path = talk_dir / "config.yaml"  # Fall back to talk dir
 
     if not config_path.exists():
         print(f"error: config file not found: {config_path}", file=sys.stderr)
@@ -49,10 +51,14 @@ def build(talk_dir: Path) -> None:
     with config_path.open("r", encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
-    # Collect slide partials in lexicographical order
-    slide_files = sorted(glob.glob(str(slides_dir / "*.html")))
+    # Collect slides in the order specified in config
+    slide_files_order = [s["file"] for s in config.get("slides", [])]
     slides_html = []
-    for sf in slide_files:
+    for slide_name in slide_files_order:
+        sf = slides_dir / slide_name
+        if not sf.exists():
+            print(f"warning: slide file not found: {sf}", file=sys.stderr)
+            continue
         with open(sf, "r", encoding="utf-8") as f:
             slides_html.append(f.read().strip())
 
