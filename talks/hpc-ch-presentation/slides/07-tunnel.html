@@ -2,7 +2,6 @@
 <section>
   <h2>why it works through firewalls</h2>
   <div class="mermaid">
-%%{init: {'theme':'base', 'themeVariables': {'fontSize': '13px'}}}%%
 flowchart LR
   subgraph Pod["Renku session pod"]
     direction TB
@@ -18,8 +17,6 @@ flowchart LR
   tunC <== WSS + WSTUNNEL_SECRET ==> wsClient
   wsClient --> svc
   rscC -. FirecREST .-> HPC
-classDef k fill:#0099cc,stroke:#007399,color:#fff;
-classDef h fill:#0acc92,stroke:#007399,color:#fff;
 class ingressPath,tunC,rscC k;
 class wsClient,svc h;
   </div>

@@ -29,13 +29,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/zoom/zoom.min.js"></script>
     <script>
+      const r = getComputedStyle(document.documentElement);
+      const mv = (name) => r.getPropertyValue(name).trim();
       Reveal.initialize({
         hash: true,
         slideNumber: true,
         transition: 'slide',
         mobileViewDistance: 2,
         plugins: [ RevealZoom, RevealMermaid, RevealHighlight ],
-        mermaid: { theme: 'default', securityLevel: 'loose' }
+        mermaid: {
+          theme: 'base',
+          securityLevel: 'loose',
+          themeVariables: {
+            fontFamily: 'Montserrat, sans-serif',
+            fontSize: mv('--mermaid-font-size'),
+          }
+        }
       });
       Reveal.addEventListener('slidechanged', function(event) {
         const isNewHorizontalSlide = event.previousSlide &&

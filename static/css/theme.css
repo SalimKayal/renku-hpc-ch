@@ -6,6 +6,15 @@
   --text-color: #1a1d20;        /* Renku dark text */
   --background-color: #ffffff;
   --strong-color: #5bbad5;      /* Renku blue for strong/emphasis text */
+
+  /* Mermaid diagram styling */
+  --mermaid-font-size: 13px;
+  --mermaid-k-fill: #0099cc;
+  --mermaid-k-stroke: #007399;
+  --mermaid-h-fill: #0acc92;
+  --mermaid-h-stroke: #007399;
+  --mermaid-k-text: #ffffff;
+  --mermaid-h-text: #ffffff;
 }
 body { font-family: 'Lato', 'Nunito Sans', sans-serif; }
 .reveal { font-family: 'Lato', 'Nunito Sans', sans-serif; color: var(--text-color); font-size: 1.7em}
@@ -71,6 +80,25 @@ body { font-family: 'Lato', 'Nunito Sans', sans-serif; }
   z-index: 100;
 }
 .reveal .mermaid { overflow: visible; max-width: 100%; }
+
+/* Mermaid node class overrides */
+.reveal .mermaid svg g.node.k rect,
+.reveal .mermaid svg g.node.k circle,
+.reveal .mermaid svg g.node.k polygon,
+.reveal .mermaid svg g.node.k ellipse {
+  fill: var(--mermaid-k-fill) !important;
+  stroke: var(--mermaid-k-stroke) !important;
+}
+.reveal .mermaid svg g.node.k .label { fill: var(--mermaid-k-text) !important; }
+
+.reveal .mermaid svg g.node.h rect,
+.reveal .mermaid svg g.node.h circle,
+.reveal .mermaid svg g.node.h polygon,
+.reveal .mermaid svg g.node.h ellipse {
+  fill: var(--mermaid-h-fill) !important;
+  stroke: var(--mermaid-h-stroke) !important;
+}
+.reveal .mermaid svg g.node.h .label { fill: var(--mermaid-h-text) !important; }
 @media (max-width: 768px) {
   .split-background-slide { background: linear-gradient(to bottom, var(--dominant-color) 50%, white 50%); }
   .left-content { width: 100%; height: 50%; padding: 20px; }

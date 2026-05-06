@@ -2,7 +2,6 @@
 <section>
   <h2>Big picture</h2>
   <div class="mermaid">
-%%{init: {'theme':'base', 'themeVariables': {'fontSize': '13px', 'fontFamily': 'Montserrat, sans-serif'}}}%%
 flowchart LR
   subgraph User["👤 User"]
     browser("🌐 Browser")
@@ -32,8 +31,6 @@ flowchart LR
   slurm --> Node
   enroot -- pull --> registry
   build --> registry
-classDef k fill:#0099cc,stroke:#007399,color:#fff;
-classDef h fill:#0acc92,stroke:#007399,color:#fff;
 class ingress,rsc,tun,build,registry k;
 class firecrest,slurm,enroot,app h;
   </div>
