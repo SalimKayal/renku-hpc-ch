@@ -69,6 +69,18 @@ body { font-family: 'Lato', 'Nunito Sans', sans-serif; }
 }
 .two-col { display: flex; gap: 30px; align-items: flex-start; }
 .two-col > div { flex: 1; }
+/* Responsive image slides */
+.reveal .image-slide img,
+.reveal .image-slide .responsive-image {
+  max-width: 85vw;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  width: auto;
+  height: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin: auto;
+}
 .title-slide .institutional-logos {
   position: fixed;
   bottom: 0;
